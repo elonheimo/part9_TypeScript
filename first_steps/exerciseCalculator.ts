@@ -30,8 +30,37 @@ const calculateExercises = (days: number[], target: number): ExerciseResult => {
   }
 } 
 
-console.log(
-  calculateExercises(
-    [3, 0, 2, 4.5, 0, 3, 1],2
-  )
-)
+// console.log(
+//   calculateExercises(
+//     [3, 0, 2, 4.5, 0, 3, 1],2
+//   )
+// )
+
+interface ExerciseArgs {
+  target: number
+  days: number[]
+}
+
+const parseArguments = (args: string[]): ExerciseArgs => {
+  if (args.length < 4) throw new Error('Not enough arguments');
+  args.slice(2).forEach((arg) => {
+    if (isNaN(Number(arg))) throw new Error('Provided values were not numbers!');
+  })
+  return {
+    target: Number(args[2]),
+    days:   args.slice(3).map((arg) => Number(arg))
+  }
+}
+
+try {
+  const { target, days} = parseArguments(process.argv)
+  console.log(calculateExercises(days, target))
+}
+catch (error: unknown){
+  if (error instanceof Error) {
+    console.log(`error + ${error.message}`);
+  }
+  else {
+    console.log('unknown error');
+  }
+}
