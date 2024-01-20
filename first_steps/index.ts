@@ -1,25 +1,42 @@
 import express from 'express';
 import { calculateBmi } from './bmiCalculator';
+import { Operation, calculator } from './calculator';
 const app = express();
-
+app.use(express.json());
 app.get('/hello', (_req, res) => {
   res.send('Hello Full Stack!');
 });
 
 app.get('/bmi', (req, res) => {
-  let { weight, height} = req.query
+  const { weight, height} = req.query;
   if (isNaN(Number(weight)) || isNaN(Number(height))) {
     return res.json({
     error: "malformatted parameters"
-    })
+    });
   }
   return res.json({
     weight: weight,
     height: height,
     bmi: calculateBmi(Number(height), Number(weight))
-  })
+  });
 });
 
+app.post('/calculate', (req, res) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const { value1, value2, op } = req.body;
+
+  if ( !value1 || isNaN(Number(value1)) ) {
+    return res.status(400).send({ error: '...'});
+  }
+
+  // more validations here...
+
+  const result = calculator(
+    Number(value1), Number(value2), op as Operation
+  );
+
+  return res.send({ result });
+});
 
 const PORT = 3003;
 
