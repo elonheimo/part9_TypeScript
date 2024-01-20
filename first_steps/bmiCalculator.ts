@@ -42,4 +42,4 @@ catch (error: unknown){
   }
 }
 
-export {};
+export {calculateBmi};
