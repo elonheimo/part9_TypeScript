@@ -8,7 +8,7 @@ interface ExerciseResult {
   average: number;
 }
 
-const calculateExercises = (days: number[], target: number): ExerciseResult => {
+export const calculateExercises = (days: number[], target: number): ExerciseResult => {
   const average = days.reduce((a, b) => a + b, 0) / days.length;
   const rating = average < target - 0.5 ? 1
     : average > target + 0.5 ? 3
@@ -36,31 +36,31 @@ const calculateExercises = (days: number[], target: number): ExerciseResult => {
 //   )
 // )
 
-interface ExerciseArgs {
-  target: number
-  days: number[]
-}
+// interface ExerciseArgs {
+//   target: number
+//   days: number[]
+// }
 
-const parseArguments = (args: string[]): ExerciseArgs => {
-  if (args.length < 4) throw new Error('Not enough arguments');
-  args.slice(2).forEach((arg) => {
-    if (isNaN(Number(arg))) throw new Error('Provided values were not numbers!');
-  });
-  return {
-    target: Number(args[2]),
-    days:   args.slice(3).map((arg) => Number(arg))
-  };
-};
+// const parseArguments = (args: string[]): ExerciseArgs => {
+//   if (args.length < 4) throw new Error('Not enough arguments');
+//   args.slice(2).forEach((arg) => {
+//     if (isNaN(Number(arg))) throw new Error('Provided values were not numbers!');
+//   });
+//   return {
+//     target: Number(args[2]),
+//     days:   args.slice(3).map((arg) => Number(arg))
+//   };
+// };
 
-try {
-  const { target, days} = parseArguments(process.argv);
-  console.log(calculateExercises(days, target));
-}
-catch (error: unknown){
-  if (error instanceof Error) {
-    console.log(`error + ${error.message}`);
-  }
-  else {
-    console.log('unknown error');
-  }
-}
+// try {
+//   const { target, days} = parseArguments(process.argv);
+//   console.log(calculateExercises(days, target));
+// }
+// catch (error: unknown){
+//   if (error instanceof Error) {
+//     console.log(`error + ${error.message}`);
+//   }
+//   else {
+//     console.log('unknown error');
+//   }
+// }
