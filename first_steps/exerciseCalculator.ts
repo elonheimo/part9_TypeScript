@@ -9,16 +9,16 @@ interface ExerciseResult {
 }
 
 const calculateExercises = (days: number[], target: number): ExerciseResult => {
-  let average = days.reduce((a, b) => a + b, 0) / days.length
-  let rating = average < target - 0.5 ? 1
+  const average = days.reduce((a, b) => a + b, 0) / days.length;
+  const rating = average < target - 0.5 ? 1
     : average > target + 0.5 ? 3
-    : 2
-  let ratingDescription = rating == 1 ? 'bad'
+    : 2;
+  const ratingDescription = rating == 1 ? 'bad'
     : rating == 2 ? 'good'
-    : 'great'
+    : 'great';
   
-  let trainingDays= days.reduce(
-    (sum, day_hrs)=> day_hrs > 0 ? sum + 1 : sum, 0)
+  const trainingDays= days.reduce(
+    (sum, day_hrs)=> day_hrs > 0 ? sum + 1 : sum, 0);
   return {
     periodLength: days.length,
     trainingDays: trainingDays,
@@ -27,8 +27,8 @@ const calculateExercises = (days: number[], target: number): ExerciseResult => {
     ratingDescription: ratingDescription,
     target: target,
     average: average,
-  }
-} 
+  };
+}; 
 
 // console.log(
 //   calculateExercises(
@@ -45,16 +45,16 @@ const parseArguments = (args: string[]): ExerciseArgs => {
   if (args.length < 4) throw new Error('Not enough arguments');
   args.slice(2).forEach((arg) => {
     if (isNaN(Number(arg))) throw new Error('Provided values were not numbers!');
-  })
+  });
   return {
     target: Number(args[2]),
     days:   args.slice(3).map((arg) => Number(arg))
-  }
-}
+  };
+};
 
 try {
-  const { target, days} = parseArguments(process.argv)
-  console.log(calculateExercises(days, target))
+  const { target, days} = parseArguments(process.argv);
+  console.log(calculateExercises(days, target));
 }
 catch (error: unknown){
   if (error instanceof Error) {
