@@ -1,6 +1,7 @@
 {
   "eslint.workingDirectories": [
     "./first_steps", 
-    "./frontend"
+    "./frontend",
+    "./patientor_backend"
   ],
 }
